@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.mysite.sbb.DataNotFoundException;
+import com.mysite.sbb.user.SiteUser;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,13 +50,27 @@ public class QuestionService {
 		}
 	}
 	
-	public void create(String subject, String content) {
+	public void create(String subject, String content, SiteUser siteUser) {
 		Question q = new Question();
 		q.setSubject(subject);
 		q.setContent(content);
 		q.setCreateDate(LocalDateTime.now());
+		q.setAuthor(siteUser);
 		
 		this.questionRepository.save(q);
 	}
+
+	
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer id;
+
+//	
+//	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+//	private List<Answer> answerList;
+//	
+//	@ManyToOne
+//	private SiteUser author;
+	
 	
 }
